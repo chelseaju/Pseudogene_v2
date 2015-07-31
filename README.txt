@@ -9,7 +9,7 @@ export PATH=$PATH:/u/home/c/chelseaj/project/software/bowtie2-2.0.6
 
 
 # Randomly select parent genes
-shuf -n 300 ../../database/Pseudogene/Parent_ENST_79.txt > SELECT_PARENTS_ENST.txt
+shuf -n 300 /u/home/c/chelseaj/project/database/Pseudogene/Parent_ENST_79.txt > SELECT_PARENTS_ENST.txt
 
 # adding pseudogene
 grep -Ff SELECT_PARENTS_ENST.txt /u/home/c/chelseaj/project/database/Ensembl/ENST_ENSG_ENSP_79.txt  | cut -f3 > SELECT_PARENTS_ENSP.txt
