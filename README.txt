@@ -36,6 +36,8 @@ python submitPreparation.py -d select_genes_600
 python submitGlobalAnalysis.py -d select_genes_600
 python submitLocalAnalysis.py -d select_genes_600
 
+# run community detection
+R --no-save --slave < community_detection.R --args select_genes_600/mapping/genes_distribution.mtx select_genes_600/mapping
 
 # post data examination:
 # examine sequence similarity after community detection
