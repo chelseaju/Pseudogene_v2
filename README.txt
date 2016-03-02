@@ -39,6 +39,15 @@ python submitLocalAnalysis.py -d select_genes_600
 # run community detection
 R --no-save --slave < community_detection.R --args select_genes_600/mapping/genes_distribution.mtx select_genes_600/mapping
 
+# community evaluataion
+
+# run training + validation
+mkdir select_genes_600/betweenness select_genes_600/infomap select_genes_600/none
+R --no-save --slave < trainning_none.R --args select_genes_600 nrow ncol rep
+R --no-save --slave < trainning_betweenness.R --args select_genes_600 nrow ncol rep
+R --no-save --slave < trainning_infomap.R --args select_genes_600 nrow ncol rep
+
+
 # post data examination:
 # examine sequence similarity after community detection
 # notice that group_XX_ids.txt and group_XX_names.txt are stored at results/community/
