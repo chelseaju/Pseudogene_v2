@@ -40,6 +40,8 @@ python submitLocalAnalysis.py -d select_genes_600
 R --no-save --slave < community_detection.R --args select_genes_600/mapping/genes_distribution.mtx select_genes_600/mapping
 
 # community evaluataion
+cat none_members.txt | awk '{ a[$2]++ } END {for (n in a) print n, a[n] }' | sort -nk1
+cat none_members.txt | awk '{ a[$2]++ } END {for (n in a) print n, a[n] }' | sort -nk2
 
 # run training + validation
 mkdir select_genes_600/betweenness select_genes_600/infomap select_genes_600/none
