@@ -38,6 +38,7 @@ python submitLocalAnalysis.py -d select_genes_600
 
 # run community detection
 R --no-save --slave < community_detection.R --args select_genes_600/mapping/genes_distribution.mtx select_genes_600/mapping
+python match_member_id_v1.py -d select_parents_pseudogene_800 -r select_parents_pseudogene_800/mapping/genes_distribution.name
 
 # community evaluataion
 cat none_members.txt | awk '{ a[$2]++ } END {for (n in a) print n, a[n] }' | sort -nk1
