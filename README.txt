@@ -43,6 +43,7 @@ python match_member_id_v1.py -d select_parents_pseudogene_800 -r select_parents_
 # community evaluataion
 cat none_members.txt | awk '{ a[$2]++ } END {for (n in a) print n, a[n] }' | sort -nk1
 cat none_members.txt | awk '{ a[$2]++ } END {for (n in a) print n, a[n] }' | sort -nk2
+awk '{print $2}' none_members.txt | sort | uniq -c | sort -n
 
 # run training + validation
 mkdir select_genes_600/betweenness select_genes_600/infomap select_genes_600/none
