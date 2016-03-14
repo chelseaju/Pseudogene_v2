@@ -38,12 +38,22 @@ python submitLocalAnalysis.py -d select_genes_600
 
 # run community detection
 R --no-save --slave < community_detection.R --args select_genes_600/mapping/genes_distribution.mtx select_genes_600/mapping
-python match_member_id_v1.py -d select_parents_pseudogene_800 -r select_parents_pseudogene_800/mapping/genes_distribution.name
+python match_member_id_v2.py -i select_parents_pseudogene_800/mapping/infomap_members.txt -o select_parents_pseudogene_800/infomap/ -r select_parents_pseudogene_800/mapping/genes_distribution.name
+python match_member_id_v2.py -i select_parents_pseudogene_800/mapping/betweenness_members.txt -o select_parents_pseudogene_800/betweenness/ -r select_parents_pseudogene_800/mapping/genes_distribution.name
+
 
 # community evaluataion
 cat none_members.txt | awk '{ a[$2]++ } END {for (n in a) print n, a[n] }' | sort -nk1
 cat none_members.txt | awk '{ a[$2]++ } END {for (n in a) print n, a[n] }' | sort -nk2
 awk '{print $2}' none_members.txt | sort | uniq -c | sort -n
+
+## compare to random cluster
+awk '{print $2}' infomap_members.txt | sort | uniq -c | sort -n | awk '{print $1"\t"$2}' > infomap_count.txt
+python random_community_generator_v2.py -o select_parents_pseudogene_800/mapping/infomap_random_members.txt -c select_parents_pseudogene_800/mapping/infomap_count.txt -m 7146
+python match_member_id_v2.py -i select_parents_pseudogene_800/mapping/infomap_random_members.txt -o select_parents_pseudogene_800/infomap_random/ -r select_parents_pseudogene_800/mapping/genes_distribution.name
+
+python community_distance_all.py -d select_parents_pseudogene_800/infomap -n 1084
+python community_distance_all.py -d select_parents_pseudogene_800/infomap_random -n 1084
 
 # run training + validation
 mkdir select_genes_600/betweenness select_genes_600/infomap select_genes_600/none
