@@ -50,10 +50,13 @@ awk '{print $2}' none_members.txt | sort | uniq -c | sort -n
 ## compare to random cluster
 awk '{print $2}' infomap_members.txt | sort | uniq -c | sort -n | awk '{print $1"\t"$2}' > infomap_count.txt
 python random_community_generator_v2.py -o select_parents_pseudogene_800/mapping/infomap_random_members.txt -c select_parents_pseudogene_800/mapping/infomap_count.txt -m 7146
-python match_member_id_v2.py -i select_parents_pseudogene_800/mapping/infomap_random_members.txt -o select_parents_pseudogene_800/infomap_random/ -r select_parents_pseudogene_800/mapping/genes_distribution.name
 
-python community_distance_all.py -d select_parents_pseudogene_800/infomap -n 1084
-python community_distance_all.py -d select_parents_pseudogene_800/infomap_random -n 1084
+python community_flow_accessment_v1.py -i select_parents_pseudogene_600_v2/mapping/genes_distribution.mtx -c select_parents_pseudogene_600_v2/mapping/infomap_members.txt -o select_parents_pseudogene_600_v2/mapping/infomap_flow.txt
+python community_flow_accessment_v1.py -i select_parents_pseudogene_600_v2/mapping/genes_distribution.mtx -c select_parents_pseudogene_600_v2/mapping/infomap_random_members.txt -o select_parents_pseudogene_600_v2/mapping/infomap_random_flow.txt
+
+REMOVE:python match_member_id_v2.py -i select_parents_pseudogene_800/mapping/infomap_random_members.txt -o select_parents_pseudogene_800/infomap_random/ -r select_parents_pseudogene_800/mapping/genes_distribution.name
+REMOVE:python community_distance_all.py -d select_parents_pseudogene_800/infomap -n 1084
+REMOVE:python community_distance_all.py -d select_parents_pseudogene_800/infomap_random -n 1084
 
 # run training + validation
 mkdir select_genes_600/betweenness select_genes_600/infomap select_genes_600/none
