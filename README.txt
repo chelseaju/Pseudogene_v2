@@ -1,3 +1,6 @@
+PseudoLasso v2: Efficient approach to correct read alignment for pseudogene abundance estimates
+
+
 ## library needed
 
 module load bedtools
